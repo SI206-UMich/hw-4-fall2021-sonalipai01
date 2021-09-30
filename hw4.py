@@ -212,7 +212,8 @@ class TestAllMethods(unittest.TestCase):
 
     # Test if a customer can add money to their wallet
     def test_reload_money(self):
-        pass
+        self.f1.reload_money(100)
+        self.assertEqual(self.f1.wallet,200)
     
 ### Write main function
 def main():
