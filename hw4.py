@@ -88,9 +88,10 @@ class Stall:
 
     def has_item(self,name,quantity):
         for k,v in self.inventory.items():
-            if k == name and v < quantity:
-                return False
-        return True
+            if k == name and v >= quantity:
+                return True
+        return False
+
 
     def stock_up(self,name,quantity):
         if name in self.inventory.keys():
@@ -188,21 +189,26 @@ class TestAllMethods(unittest.TestCase):
 
         # Test to see if has_item returns True when a stall has enough items left
         # Please follow the instructions below to create three different kinds of test cases 
-        # Test case 1: the stall does not have this food item: 
+        # Test case 1: the stall does not have this food item:
+        self.assertFalse(self.s1.has_item("Salsa",2))
         
-        # Test case 2: the stall does not have enough food item: 
+        # Test case 2: the stall does not have enough food item:
+        self.assertFalse(self.s1.has_item("Burger",41))
+
         
         # Test case 3: the stall has the food item of the certain quantity: 
-        pass
+        self.assertTrue(self.s3.has_item("Taco",1))
 
 	# Test validate order
     def test_validate_order(self):
 		# case 1: test if a customer doesn't have enough money in their wallet to order
+        self.f1.validate_order(self.c1,self.s1,"Taco",11)
 
 		# case 2: test if the stall doesn't have enough food left in stock
+        self.f2.validate_order(self.c2,self.s1,"Taco",52)
 
 		# case 3: check if the cashier can order item from that stall
-        pass
+        self.f1.validate_order(self.c1,self.s2,"Burger",4)
 
     # Test if a customer can add money to their wallet
     def test_reload_money(self):
